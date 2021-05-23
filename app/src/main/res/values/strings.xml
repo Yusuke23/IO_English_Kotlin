@@ -1,3 +1,20 @@
 <resources>
     <string name="app_name">IO English</string>
+    <string name="note_text_no_happy_places_found_yet">Let\'s start writing your first note</string>
+    <string name="image_content_description">image</string>
+    <string name="edit_text_hint_phrase_today_in_japanese">今日のフレーズ</string>
+    <string name="edit_text_hint_phrase_today_in_english">Today\'s phrase</string>
+    <string name="edit_text_hint_date">Date</string>
+    <string name="edit_text_hint_location">Select Tag</string>
+    <string name="text_add_image">ADD IMAGE</string>
+    <string name="btn_text_save">SAVE</string>
+<!--main content-->
+    <string name="no_boards_are_available">No Boards are available!!!</string>
+<!--nav_header_main-->
+    <string name="image_contentDescription">image</string>
+    <string name="nav_header_main_title">集まったフレーズ</string>
+<!--activity_main_drawer-->
+    <string name="nav_sign_out">Sign Out</string>
+    <string name="nav_tag_name">tags</string>
+
 </resources>
