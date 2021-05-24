@@ -9,6 +9,8 @@
     <color name="white">#FFFFFFFF</color>
 
     <color name="primary_text_color">#212121</color>
+    <color name="secondary_text_color">#9AA2AF</color>
+
     <color name="white_color">#FFFFFF</color>
     <color name="circular_image_border_color">#757575</color>
     <color name="item_IOEnglish_description_text_color">#606060</color>
@@ -16,8 +18,9 @@
     <color name="colorPrimary">#4b86b4</color>
     <color name="colorPrimaryDark">#4b86b4</color>
     <color name="colorPrimaryVariant">#4b86b4</color>
-    <color name="secondary_text_color">#9AA2AF</color>
     <color name="colorAccent">#abcde3</color>
 
     <color name="button_background_color">#63ace5</color>
+<!--    base_activity-->
+    <color name="snackBar_error_color">#F72400</color>
 </resources>
