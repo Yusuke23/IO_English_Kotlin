@@ -31,5 +31,7 @@
     <string name="please_click_back_again_to_exit">Please click back again to exit.</string>
 <!--    dialog_progress-->
     <string name="please_wait">Please Wait&#8230;</string>
+<!--    add_notes_activity-->
+    <string name="add_notes_title">Create new note</string>
 
 </resources>
