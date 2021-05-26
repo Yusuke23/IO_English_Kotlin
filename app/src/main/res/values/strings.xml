@@ -7,18 +7,22 @@
     <string name="edit_text_hint_date">Date</string>
     <string name="edit_text_hint_location">Select Tag</string>
     <string name="text_add_image">ADD IMAGE</string>
-    <string name="btn_text_save">SAVE</string>
+    <string name="btn_text_create">CREATE</string>
     <!--    activity_intro-->
     <string name="let_s_get_started_text">Let\'s Get started</string>
     <string name="intro_text_description">You can build your English vocabulary \n writing dairy note.</string>
     <string name="sign_in">SIGN IN</string>
     <string name="sign_up">SIGN UP</string>
     <!--    main_content-->
-    <string name="no_boards_are_available">No Boards are available!!!</string>
+    <string name="no_notes_are_available">No notes yet</string>
+<!--    activity_my_profile-->
+    <string name="update">UPDATE</string>
+    <string name="my_profile_title">My profile</string>
     <!--    nav_header_main-->
     <string name="image_contentDescription">image</string>
-    <string name="nav_header_main_title">集まったフレーズ</string>
+    <string name="nav_header_main_title">English Note</string>
     <!--    activity_main_drawer-->
+    <string name="nav_my_profile">My Profile</string>
     <string name="nav_sign_out">Sign Out</string>
     <string name="nav_tag_name">tags</string>
     <!--    activity_sign_up & activity_sign_in-->
@@ -27,11 +31,11 @@
     <string name="password">Password</string>
     <string name="email">Email</string>
     <string name="sign_in_description_text">Enter your name, email id and password, to register with us.</string>
-<!--    base_activity-->
+    <!--    base_activity-->
     <string name="please_click_back_again_to_exit">Please click back again to exit.</string>
-<!--    dialog_progress-->
+    <!--    dialog_progress-->
     <string name="please_wait">Please Wait&#8230;</string>
-<!--    add_notes_activity-->
+    <!--    add_notes_activity-->
     <string name="add_notes_title">Create new note</string>
 
 </resources>
