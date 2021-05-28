@@ -16,7 +16,11 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.IOEnglish">
         <activity
-            android:name=".activities.MyProfileActivity"
+            android:name=".activities.EditNoteActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/CustomNoActionBarTheme" />
+        <activity
+            android:name=".activities.MyAccountActivity"
             android:screenOrientation="portrait"
             android:theme="@style/CustomNoActionBarTheme" />
         <activity

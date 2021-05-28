@@ -2,8 +2,8 @@
     <string name="app_name">IO English</string>
     <string name="note_text_no_happy_places_found_yet">Let\'s start writing your first note</string>
     <string name="image_content_description">image</string>
-    <string name="edit_text_hint_phrase_today_in_japanese">今日のフレーズ</string>
-    <string name="edit_text_hint_phrase_today_in_english">Today\'s phrase</string>
+    <string name="edit_text_hint_phrase_today_in_japanese">日本語</string>
+    <string name="edit_text_hint_phrase_today_in_english">English</string>
     <string name="edit_text_hint_date">Date</string>
     <string name="edit_text_hint_location">Select Tag</string>
     <string name="text_add_image">ADD IMAGE</string>
@@ -15,7 +15,7 @@
     <string name="sign_up">SIGN UP</string>
     <!--    main_content-->
     <string name="no_notes_are_available">No notes yet</string>
-<!--    activity_my_profile-->
+    <!--    activity_my_profile-->
     <string name="update">UPDATE</string>
     <string name="my_profile_title">My profile</string>
     <!--    nav_header_main-->
@@ -37,5 +37,7 @@
     <string name="please_wait">Please Wait&#8230;</string>
     <!--    add_notes_activity-->
     <string name="add_notes_title">Create new note</string>
+<!--    activity_edit_note-->
+    <string name="btn_done_edit_note">DONE</string>
 
 </resources>

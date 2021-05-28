@@ -113,7 +113,7 @@ class MainActivity: BaseActivity(), NavigationView.OnNavigationItemSelectedListe
         when (item.itemId) {
             R.id.nav_my_profile -> {
                 startActivityForResult(
-                    Intent(this, MyProfileActivity::class.java),
+                    Intent(this, MyAccountActivity::class.java),
                     MY_PROFILE_REQUEST_CODE
                 )
             }
@@ -152,13 +152,13 @@ class MainActivity: BaseActivity(), NavigationView.OnNavigationItemSelectedListe
 
 
             // 作成されたボードをクリックすると遷移
-//            adapter.setOnClickListener(object : NoteItemsAdapter.OnClickListener {
-//                override fun onClick(position: Int, model: Note) {
-//                    val intent = Intent(this@MainActivity, TaskListActivity::class.java)
-//                    intent.putExtra(Constants.DOCUMENT_ID, model.documentId)
-//                    startActivity(intent)
-//                }
-//            })
+            adapter.setOnClickListener(object : NoteItemsAdapter.OnClickListener {
+                override fun onClick(position: Int, model: Note) {
+                    val intent = Intent(this@MainActivity, EditNoteActivity::class.java)
+                    intent.putExtra(Constants.DOCUMENT_ID, model.documentId)
+                    startActivity(intent)
+                }
+            })
 
         } else {
             binding.iAppBarMain.iMainContent.rvNotesList.visibility = View.GONE

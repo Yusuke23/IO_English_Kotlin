@@ -15,9 +15,9 @@
     <color name="circular_image_border_color">#757575</color>
     <color name="item_IOEnglish_description_text_color">#606060</color>
 
-    <color name="colorPrimary">#4b86b4</color>
-    <color name="colorPrimaryDark">#4b86b4</color>
-    <color name="colorPrimaryVariant">#4b86b4</color>
+    <color name="colorPrimary">#FF6200EE</color>
+    <color name="colorPrimaryDark">#FFBB86FC</color>
+    <color name="colorPrimaryVariant">#FF3700B3</color>
     <color name="colorAccent">#abcde3</color>
 
     <color name="button_background_color">#63ace5</color>
