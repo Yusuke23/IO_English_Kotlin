@@ -23,14 +23,15 @@ import com.google.firebase.auth.FirebaseAuth
 
 class MainActivity: BaseActivity(), NavigationView.OnNavigationItemSelectedListener {
 
-    private lateinit var mSharedPreferences: SharedPreferences
-
-    private lateinit var binding: ActivityMainBinding
-
     companion object {
         const val MY_PROFILE_REQUEST_CODE: Int = 11
         const val CREATE_NOTE_REQUEST_CODE: Int = 12 // ノートを新しく作った時、メイン画面のリロード用
+        const val EDIT_NOTE_REQUEST_CODE: Int = 13 // ノートを編集した時、メイン画面のリロード用
     }
+
+    private lateinit var mSharedPreferences: SharedPreferences
+
+    private lateinit var binding: ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -70,10 +71,10 @@ class MainActivity: BaseActivity(), NavigationView.OnNavigationItemSelectedListe
         else if (resultCode == Activity.RESULT_OK && requestCode == CREATE_NOTE_REQUEST_CODE) {
             FirestoreClass().getNotesList(this)
         }
-//todo ↑ ↓ どっちか
-//        if (resultCode == Activity.RESULT_OK && requestCode == CREATE_NOTE_REQUEST_CODE) {
-//            FirestoreClass().getNotesList(this)
-//        }
+        // ノートを編集した時、メイン画面のリロード用
+        else if (resultCode == Activity.RESULT_OK && requestCode == EDIT_NOTE_REQUEST_CODE) {
+            FirestoreClass().getNotesList(this)
+        }
 
         else {
             Log.e("Cancelled", "Cancelled")
@@ -111,7 +112,7 @@ class MainActivity: BaseActivity(), NavigationView.OnNavigationItemSelectedListe
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-            R.id.nav_my_profile -> {
+            R.id.nav_my_account -> {
                 startActivityForResult(
                     Intent(this, MyAccountActivity::class.java),
                     MY_PROFILE_REQUEST_CODE
@@ -149,14 +150,15 @@ class MainActivity: BaseActivity(), NavigationView.OnNavigationItemSelectedListe
             val adapter = NoteItemsAdapter(this, notesList)
             binding.iAppBarMain.iMainContent.rvNotesList.adapter = adapter
 
-
-
-            // 作成されたボードをクリックすると遷移
+            // 作成されたノートをクリックするとノートエディットページに遷移
             adapter.setOnClickListener(object : NoteItemsAdapter.OnClickListener {
                 override fun onClick(position: Int, model: Note) {
                     val intent = Intent(this@MainActivity, EditNoteActivity::class.java)
+
+                    // edit note のページへ note の情報を引き継ぐ
                     intent.putExtra(Constants.DOCUMENT_ID, model.documentId)
-                    startActivity(intent)
+
+                    startActivityForResult(intent, EDIT_NOTE_REQUEST_CODE)
                 }
             })
 
@@ -167,7 +169,6 @@ class MainActivity: BaseActivity(), NavigationView.OnNavigationItemSelectedListe
     }
 
     fun updateNavigationUserDetails(user: User?, readNotesList: Boolean) {
-        // todo user name
 
         Glide
             .with(this)
@@ -181,5 +182,4 @@ class MainActivity: BaseActivity(), NavigationView.OnNavigationItemSelectedListe
             FirestoreClass().getNotesList(this)
         }
     }
-
 }

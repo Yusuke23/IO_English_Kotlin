@@ -15,14 +15,14 @@
     <string name="sign_up">SIGN UP</string>
     <!--    main_content-->
     <string name="no_notes_are_available">No notes yet</string>
-    <!--    activity_my_profile-->
+    <!--    activity_my_account-->
     <string name="update">UPDATE</string>
-    <string name="my_profile_title">My profile</string>
+    <string name="my_account_title">My account</string>
     <!--    nav_header_main-->
     <string name="image_contentDescription">image</string>
     <string name="nav_header_main_title">English Note</string>
     <!--    activity_main_drawer-->
-    <string name="nav_my_profile">My Profile</string>
+    <string name="nav_my_account">My Account</string>
     <string name="nav_sign_out">Sign Out</string>
     <string name="nav_tag_name">tags</string>
     <!--    activity_sign_up & activity_sign_in-->
@@ -39,5 +39,10 @@
     <string name="add_notes_title">Create new note</string>
 <!--    activity_edit_note-->
     <string name="btn_done_edit_note">DONE</string>
-
+<!--    EditNoteActivity-->
+    <string name="delete_note">Delete Note</string>
+    <string name="alert">Alert</string>
+    <string name="confirmation_message_to_delete_note">Are you sure you want to delete this note?</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
 </resources>
