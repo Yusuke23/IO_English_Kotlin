@@ -21,6 +21,8 @@ import com.example.ioenglish.utils.Constants
 import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.FirebaseAuth
 
+
+@Suppress("NAME_SHADOWING")
 class MainActivity: BaseActivity(), NavigationView.OnNavigationItemSelectedListener {
 
     companion object {
@@ -159,6 +161,7 @@ class MainActivity: BaseActivity(), NavigationView.OnNavigationItemSelectedListe
                     intent.putExtra(Constants.DOCUMENT_ID, model.documentId)
 
                     startActivityForResult(intent, EDIT_NOTE_REQUEST_CODE)
+
                 }
             })
 
@@ -167,6 +170,8 @@ class MainActivity: BaseActivity(), NavigationView.OnNavigationItemSelectedListe
             binding.iAppBarMain.iMainContent.tvNoNotesAvailable.visibility = View.VISIBLE
         }
     }
+
+
 
     fun updateNavigationUserDetails(user: User?, readNotesList: Boolean) {
 
