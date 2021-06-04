@@ -4,12 +4,17 @@ import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
+import android.graphics.Canvas
 import android.os.Bundle
 import android.util.Log
 import android.view.MenuItem
 import android.view.View
+import android.widget.Toast
 import androidx.core.view.GravityCompat
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.RecyclerView.ItemDecoration
 import com.bumptech.glide.Glide
 import com.example.ioenglish.R
 import com.example.ioenglish.adapters.NoteItemsAdapter
@@ -18,12 +23,16 @@ import com.example.ioenglish.firebase.FirestoreClass
 import com.example.ioenglish.models.Note
 import com.example.ioenglish.models.User
 import com.example.ioenglish.utils.Constants
+import com.example.ioenglish.utils.SwipeController
+import com.example.ioenglish.utils.SwipeControllerActions
 import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.FirebaseAuth
 
 
 @Suppress("NAME_SHADOWING")
 class MainActivity: BaseActivity(), NavigationView.OnNavigationItemSelectedListener {
+
+    var swipeController: SwipeController? = null
 
     companion object {
         const val MY_PROFILE_REQUEST_CODE: Int = 11
@@ -138,8 +147,9 @@ class MainActivity: BaseActivity(), NavigationView.OnNavigationItemSelectedListe
         return true
     }
 
-    // メイン画面にノート or 何もない画面表示
+    // メイン画面にノート or 何もない画面表示　//  todo swipe to edit 設置
     fun populateNotesListToUI(notesList: ArrayList<Note>) {
+
         hideProgressDialog()
 
         // 作成されたノートがある場合ノートを並べて表示、なければない No notes available とかいた画面を表示
@@ -152,16 +162,33 @@ class MainActivity: BaseActivity(), NavigationView.OnNavigationItemSelectedListe
             val adapter = NoteItemsAdapter(this, notesList)
             binding.iAppBarMain.iMainContent.rvNotesList.adapter = adapter
 
+            swipeController = SwipeController(object : SwipeControllerActions() {
+
+                // viewHolder を左にスワイプして下層レイヤーから出てくる EDIT button を押した時の処理
+                override fun onRightClicked(position: Int) {
+                    val adapter = binding.iAppBarMain.iMainContent.rvNotesList.adapter as NoteItemsAdapter
+                    adapter.notifyEditItem(
+                        this@MainActivity,
+                        position,
+                        EDIT_NOTE_REQUEST_CODE
+                    )
+                }
+
+            })
+
+            val itemTouchHelper = ItemTouchHelper(swipeController!!)
+            itemTouchHelper.attachToRecyclerView(binding.iAppBarMain.iMainContent.rvNotesList)
+
+            binding.iAppBarMain.iMainContent.rvNotesList.addItemDecoration(object : ItemDecoration() {
+                override fun onDraw(c: Canvas, parent: RecyclerView, state: RecyclerView.State) {
+                    swipeController!!.onDraw(c)
+                }
+            })
+
             // 作成されたノートをクリックするとノートエディットページに遷移
             adapter.setOnClickListener(object : NoteItemsAdapter.OnClickListener {
                 override fun onClick(position: Int, model: Note) {
-                    val intent = Intent(this@MainActivity, EditNoteActivity::class.java)
-
-                    // edit note のページへ note の情報を引き継ぐ
-                    intent.putExtra(Constants.DOCUMENT_ID, model.documentId)
-
-                    startActivityForResult(intent, EDIT_NOTE_REQUEST_CODE)
-
+                    //todo implement text to speech
                 }
             })
 
@@ -170,8 +197,6 @@ class MainActivity: BaseActivity(), NavigationView.OnNavigationItemSelectedListe
             binding.iAppBarMain.iMainContent.tvNoNotesAvailable.visibility = View.VISIBLE
         }
     }
-
-
 
     fun updateNavigationUserDetails(user: User?, readNotesList: Boolean) {
 
