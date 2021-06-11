@@ -5,7 +5,7 @@
     <string name="edit_text_hint_phrase_today_in_japanese">日本語</string>
     <string name="edit_text_hint_phrase_today_in_english">English</string>
     <string name="edit_text_hint_date">Date</string>
-    <string name="edit_text_hint_location">Select Tag</string>
+    <string name="edit_text_hint_key_word">Key word</string>
     <string name="text_add_image">ADD IMAGE</string>
     <string name="btn_text_create">CREATE</string>
     <!--    activity_intro-->
@@ -15,6 +15,8 @@
     <string name="sign_up">SIGN UP</string>
     <!--    main_content-->
     <string name="no_notes_are_available">No notes yet</string>
+    <string name="text_view_search_here">  Search here…</string>
+
     <!--    activity_my_account-->
     <string name="update">UPDATE</string>
     <string name="my_account_title">My account</string>
@@ -47,4 +49,13 @@
     <string name="no">No</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+<!--    menu_search_note-->
+    <string name="search_note">Search</string>
+    <!--    menu_edit_note-->
+    <string name="edit_note_done">done</string>
+    <!--    menu_create_note-->
+    <string name="save_note">save</string>
+<!--    MainActivity-->
+    <string name="speech_to_text_text_hint">Tap and hold the mic mark and say something!</string>
+
 </resources>

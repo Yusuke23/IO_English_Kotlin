@@ -1,15 +1,27 @@
 package com.example.ioenglish.activities
 
+import android.Manifest
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
+import android.content.pm.PackageManager
 import android.graphics.Canvas
+import android.net.Uri
+import android.os.Build
 import android.os.Bundle
+import android.provider.Settings
+import android.speech.RecognitionListener
+import android.speech.RecognizerIntent
+import android.speech.SpeechRecognizer
+import android.speech.tts.TextToSpeech
 import android.util.Log
 import android.view.MenuItem
+import android.view.MotionEvent
 import android.view.View
 import android.widget.Toast
+import androidx.core.content.ContextCompat
 import androidx.core.view.GravityCompat
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -27,10 +39,15 @@ import com.example.ioenglish.utils.SwipeController
 import com.example.ioenglish.utils.SwipeControllerActions
 import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.FirebaseAuth
+import java.util.*
 
 
 @Suppress("NAME_SHADOWING")
-class MainActivity: BaseActivity(), NavigationView.OnNavigationItemSelectedListener {
+class MainActivity: BaseActivity(), NavigationView.OnNavigationItemSelectedListener, TextToSpeech.OnInitListener {
+
+    private val sttTag = "RecognitionListener"
+
+    private var tts: TextToSpeech? = null
 
     var swipeController: SwipeController? = null
 
@@ -49,14 +66,29 @@ class MainActivity: BaseActivity(), NavigationView.OnNavigationItemSelectedListe
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        // 検索バー左のボタンをタップでドロワーが開く
+        binding.iAppBarMain.iMainContent.ibToggleDrawerOpen.setOnClickListener {
+            toggleDrawer()
+
+            // tts の停止
+            onStop()
+        }
+
         // 右下のフローティングボタンを押すとノートを書くページへ遷移
         binding.iAppBarMain.fabCreateNote.setOnClickListener {
             startActivityForResult(
                 Intent(this, CreateNoteActivity::class.java),
                 CREATE_NOTE_REQUEST_CODE)
+
+            // tts の停止
+            onStop()
         }
 
-        setupActionBar()
+
+//        setupActionBar()
+
+        // text to speech
+        tts = TextToSpeech(this, this)
 
         binding.navView.setNavigationItemSelectedListener(this)
 
@@ -68,6 +100,10 @@ class MainActivity: BaseActivity(), NavigationView.OnNavigationItemSelectedListe
         FirestoreClass().loadUserData(this)
         FirestoreClass().getNotesList(this)
         hideProgressDialog()
+
+        // speech to text 用
+        checkPermission()
+        startSpeechToText()
 
     }
 
@@ -85,20 +121,10 @@ class MainActivity: BaseActivity(), NavigationView.OnNavigationItemSelectedListe
         // ノートを編集した時、メイン画面のリロード用
         else if (resultCode == Activity.RESULT_OK && requestCode == EDIT_NOTE_REQUEST_CODE) {
             FirestoreClass().getNotesList(this)
-        }
-
-        else {
+        } else {
             Log.e("Cancelled", "Cancelled")
         }
-    }
 
-    // view binding 別のXMLから参照 /
-    private fun setupActionBar() {
-        setSupportActionBar(binding.iAppBarMain.toolbarMainActivity)
-        binding.iAppBarMain.toolbarMainActivity.setNavigationIcon(R.drawable.ic_action_navigation_menu)
-        binding.iAppBarMain.toolbarMainActivity.setNavigationOnClickListener {
-            toggleDrawer()
-        }
     }
 
     // 画面左からドローワーを開く or 閉じる
@@ -111,7 +137,7 @@ class MainActivity: BaseActivity(), NavigationView.OnNavigationItemSelectedListe
         }
     }
 
-    // ドローワーを閉じる or アプリを閉じる
+    // デバイスの戻るボタンをシングルタップ → ドローワーを閉じる。 / ダブルタップ → アプリを閉じる
     override fun onBackPressed() {
         if (binding.drawerLayout.isDrawerOpen(GravityCompat.START)) {
             binding.drawerLayout.closeDrawer(GravityCompat.START)
@@ -147,7 +173,7 @@ class MainActivity: BaseActivity(), NavigationView.OnNavigationItemSelectedListe
         return true
     }
 
-    // メイン画面にノート or 何もない画面表示　//  todo swipe to edit 設置
+    // メイン画面にノート or 何もない画面表示
     fun populateNotesListToUI(notesList: ArrayList<Note>) {
 
         hideProgressDialog()
@@ -172,6 +198,8 @@ class MainActivity: BaseActivity(), NavigationView.OnNavigationItemSelectedListe
                         position,
                         EDIT_NOTE_REQUEST_CODE
                     )
+                    // tts の停止
+                    onStop()
                 }
 
             })
@@ -185,10 +213,12 @@ class MainActivity: BaseActivity(), NavigationView.OnNavigationItemSelectedListe
                 }
             })
 
-            // 作成されたノートをクリックするとノートエディットページに遷移
+            // 作成されたノートをクリックした時の処理
             adapter.setOnClickListener(object : NoteItemsAdapter.OnClickListener {
                 override fun onClick(position: Int, model: Note) {
-                    //todo implement text to speech
+
+                    //text to speech 画面のノートをタップすると英文を読み上げてくれる
+                    speakOut(model.english)
                 }
             })
 
@@ -204,7 +234,7 @@ class MainActivity: BaseActivity(), NavigationView.OnNavigationItemSelectedListe
             .with(this)
             .load(user!!.image)
             .centerCrop()
-            .placeholder(R.drawable.ic_user_place_holder)
+//            .placeholder(R.drawable.ic_user_place_holder)
             .into(binding.iNavHeaderMain.navUserImage)
 
         if (readNotesList) {
@@ -212,4 +242,164 @@ class MainActivity: BaseActivity(), NavigationView.OnNavigationItemSelectedListe
             FirestoreClass().getNotesList(this)
         }
     }
+
+    // text to speech 用
+    override fun onInit(status: Int) {
+        if (status == TextToSpeech.SUCCESS) {
+            val result = tts!!.setLanguage(Locale.US)
+            if (result == TextToSpeech.LANG_MISSING_DATA || result == TextToSpeech.LANG_NOT_SUPPORTED) {
+                Log.e("TTS", "The Language specified is not supported!")
+            }
+        } else {
+            Log.e("TTS", "Initialization Failed!")
+        }
+    }
+
+    //todo try
+    override fun onStop() {
+        if (tts != null) {
+            tts!!.stop()
+        }
+        super.onStop()
+    }
+
+    // text to speech 用
+    override fun onDestroy() {
+        if (tts != null) {
+            tts!!.stop()
+            tts!!.shutdown()
+        }
+        super.onDestroy()
+    }
+
+    // テキストを読み上げる機能
+    private fun speakOut(text: String) {
+        tts!!.speak(text, TextToSpeech.QUEUE_FLUSH, null, "")
+    }
+
+    // speech to text (emulator では使えない。)
+    @SuppressLint("ClickableViewAccessibility")
+    private fun startSpeechToText() {
+        val editText = binding.iAppBarMain.iMainContent.etSearchNote
+
+        val speechRecognizer = SpeechRecognizer.createSpeechRecognizer(this)
+        val speechRecognizerIntent = Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH)
+        speechRecognizerIntent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM)
+        speechRecognizerIntent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, Locale.getDefault())
+
+        speechRecognizer.setRecognitionListener(object : RecognitionListener {
+            override fun onReadyForSpeech(params: Bundle?) {
+                Log.i(sttTag, "onReadyForSpeech")
+            }
+
+            override fun onBeginningOfSpeech() {
+                Log.i(sttTag, "onBeginningOfSpeech")
+            }
+
+            override fun onRmsChanged(rmsdB: Float) {
+                Log.i(sttTag, "onRmsChanged")
+            }
+
+            override fun onBufferReceived(buffer: ByteArray?) {
+                Log.i(sttTag, "onBufferReceived")
+            }
+
+            override fun onEndOfSpeech() {
+                Log.i(sttTag, "onEndOfSpeech")
+            }
+
+            override fun onError(error: Int) {
+                Toast.makeText(applicationContext, errorHandler(error), Toast.LENGTH_SHORT).show()
+                Log.i(sttTag, "onError")
+            }
+
+            override fun onResults(results: Bundle?) {
+                val data: ArrayList<String>? =
+                    results!!.getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION)
+                editText.text = data!![0]
+            }
+
+            override fun onPartialResults(partialResults: Bundle?) {
+                Log.i(sttTag, "onPartialResults")
+            }
+
+            override fun onEvent(eventType: Int, params: Bundle?) {
+            }
+        })
+
+        binding.iAppBarMain.iMainContent.ibMicButton.setOnTouchListener { _, motionEvent ->
+            when (motionEvent.action) {
+                MotionEvent.ACTION_UP -> {
+                    speechRecognizer.stopListening()
+                    editText.hint = getString(R.string.speech_to_text_text_hint)
+                }
+
+                MotionEvent.ACTION_DOWN -> {
+                    speechRecognizer.startListening(speechRecognizerIntent)
+                    editText.text = ""
+                    editText.hint = "Listening...\n"
+
+                    // tts の停止
+                    onStop()
+                }
+            }
+            false
+        }
+    }
+
+    // speech to text を使うため。ユーザーにマイク使用の許可を求める。
+    private fun checkPermission() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if (ContextCompat.checkSelfPermission(this, Manifest.permission.RECORD_AUDIO) != PackageManager.PERMISSION_GRANTED) {
+                val intent = Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS, Uri.parse("package:$packageName"))
+                startActivity(intent)
+                finish()
+                Toast.makeText(this, "Enable Microphone Permission..!!", Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
+
+    // speech to text 用 エラー原因をユーザーに知らせる。
+    fun errorHandler(errorCode: Int): String {
+        when (errorCode) {
+            1 -> {
+                return "NETWORK TIMEOUT"
+            }
+            2 -> {
+                return "NETWORK ERROR"
+            }
+            3 -> {
+                return "AUDIO ERROR"
+            }
+            4 -> {
+                return "SERVER ERROR"
+            }
+            5 -> {
+                return "CLIENT ERROR"
+            }
+            6 -> {
+                return "SPEECH TIMEOUT"
+            }
+            7 -> {
+                return "NO MATCH"
+            }
+            8 -> {
+                return "RECOGNIZER BUSY"
+            }
+            9 -> {
+                return "INSUFFICIENT_PERMISSIONS"
+            }
+            10 -> {
+                return "TOO MANY REQUESTS"
+            }
+
+            11 -> {
+                return "SERVER DISCONNECTED"
+            }
+            else -> {
+            }
+        }
+        return "UNKNOWN ERROR"
+    }
+
 }
