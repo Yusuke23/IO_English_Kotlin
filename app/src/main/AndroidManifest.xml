@@ -9,15 +9,6 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.CAMERA" />
 
-<!--    必要かわからないが現状入れておく。speech to text 用-->
-<!--    <queries>-->
-<!--        <intent>-->
-<!--            <action-->
-<!--                android:name="android.speech.RecognitionService" />-->
-<!--        </intent>-->
-<!--    </queries>-->
-<!--    ここまで-->
-
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -26,7 +17,19 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.IOEnglish">
         <activity
-            android:name=".activities.EditNoteActivity"
+            android:name=".activities.CreateCardSituationActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/CustomNoActionBarTheme" />
+        <activity
+            android:name=".activities.EditCardSituationActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/CustomNoActionBarTheme"/>
+        <activity
+            android:name=".activities.CardPhraseActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/CustomNoActionBarTheme"/>
+        <activity
+            android:name=".activities.EditCardPhraseActivity"
             android:screenOrientation="portrait"
             android:theme="@style/CustomNoActionBarTheme" />
         <activity
@@ -60,7 +63,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".activities.CreateNoteActivity"
+            android:name=".activities.CreateCardPhraseActivity"
             android:screenOrientation="portrait"
             android:theme="@style/CustomNoActionBarTheme" />
         <activity

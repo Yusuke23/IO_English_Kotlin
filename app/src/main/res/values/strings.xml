@@ -5,6 +5,7 @@
     <string name="edit_text_hint_phrase_today_in_japanese">日本語</string>
     <string name="edit_text_hint_phrase_today_in_english">English</string>
     <string name="edit_text_hint_date">Date</string>
+    <string name="edit_text_hint_situation">Situation</string>
     <string name="edit_text_hint_key_word">Key word</string>
     <string name="text_add_image">ADD IMAGE</string>
     <string name="btn_text_create">CREATE</string>
@@ -14,7 +15,7 @@
     <string name="sign_in">SIGN IN</string>
     <string name="sign_up">SIGN UP</string>
     <!--    main_content-->
-    <string name="no_notes_are_available">No notes yet</string>
+    <string name="no_card_available">No cards yet</string>
     <string name="text_view_search_here">  Search here…</string>
 
     <!--    activity_my_account-->
@@ -37,8 +38,16 @@
     <string name="please_click_back_again_to_exit">Please click back again to exit.</string>
     <!--    dialog_progress-->
     <string name="please_wait">Please Wait&#8230;</string>
-    <!--    add_notes_activity-->
-    <string name="add_notes_title">Create new note</string>
+<!--    CardPhraseActivity-->
+    <string name="main_content_card_phrase_title">Phrases</string>
+    <!--    CreateCardSituationActivity-->
+    <string name="create_card_situation_title">Create new situation card</string>
+<!--    CreateCardPhraseActivity-->
+    <string name="create_card_phrase_title">Create new phrase card</string>
+    <!--    EditCardSituationActivity-->
+    <string name="edit_card_situation_title">Edit situation card</string>
+<!--    EditCardPhraseActivity-->
+    <string name="edit_card_phrase_title">Edit the phrase</string>
     <!--    activity_edit_note-->
     <string name="btn_done_edit_note">DONE</string>
     <!--    EditNoteActivity-->
@@ -49,13 +58,13 @@
     <string name="no">No</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-<!--    menu_search_note-->
+    <!--    menu_search_note-->
     <string name="search_note">Search</string>
     <!--    menu_edit_note-->
     <string name="edit_note_done">done</string>
     <!--    menu_create_note-->
     <string name="save_note">save</string>
-<!--    MainActivity-->
+    <!--    MainActivity-->
     <string name="speech_to_text_text_hint">Tap and hold the mic mark and say something!</string>
 
 </resources>

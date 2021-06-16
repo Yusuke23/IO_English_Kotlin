@@ -12,7 +12,7 @@
 
     <!--    view binding 用-->
     <include
-        android:id="@+id/i_app_bar_main"
+        android:id="@+id/i_appbar_main"
         layout="@layout/appbar_main"/>
 
     <com.google.android.material.navigation.NavigationView
