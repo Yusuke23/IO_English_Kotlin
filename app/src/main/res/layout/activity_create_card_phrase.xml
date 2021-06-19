@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activities.CreateCardPhraseActivity">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar_create_card_phrase"
+        android:background="@color/colorPrimary"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:theme="@style/CustomNoActionBarTheme"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <ScrollView
+        android:id="@+id/sv_create_card_phrase"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:fillViewport="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/toolbar_create_card_phrase">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/main_content_padding">
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/til_create_phrase_in_japanese"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <androidx.appcompat.widget.AppCompatEditText
+                    android:id="@+id/et_create_phrase_in_japanese"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/add_note_et_japanese_and_english_height"
+                    android:hint="@string/edit_text_hint_phrase_today_in_japanese"
+                    android:gravity="top"
+                    android:inputType="textMultiLine"
+                    android:textColor="@color/primary_text_color"
+                    android:textColorHint="@color/secondary_text_color"
+                    android:textSize="@dimen/edit_text_text_size" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/til_create_phrase_in_english"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/add_screen_til_marginTop"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/til_create_phrase_in_japanese">
+
+                <androidx.appcompat.widget.AppCompatEditText
+                    android:id="@+id/et_create_phrase_in_english"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/add_note_et_japanese_and_english_height"
+                    android:hint="@string/edit_text_hint_phrase_today_in_english"
+                    android:gravity="top"
+                    android:inputType="textMultiLine"
+                    android:textColor="@color/primary_text_color"
+                    android:textColorHint="@color/secondary_text_color"
+                    android:textSize="@dimen/edit_text_text_size" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/til_create_key_word"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/add_screen_til_marginTop"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/til_create_phrase_in_english">
+
+                <androidx.appcompat.widget.AppCompatEditText
+                    android:id="@+id/et_create_key_word"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/edit_text_hint_key_word"
+                    android:inputType="text"
+                    android:textColor="@color/primary_text_color"
+                    android:textColorHint="@color/secondary_text_color"
+                    android:textSize="@dimen/edit_text_text_size" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/til_create_color_label"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/add_screen_til_marginTop"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/til_create_key_word">
+
+                <androidx.appcompat.widget.AppCompatEditText
+                    android:id="@+id/tv_create_color_label"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/edit_text_hint_color_label"
+                    android:focusable="false"
+                    android:focusableInTouchMode="false"
+                    android:textColorHint="@color/secondary_text_color"
+                    android:textSize="@dimen/edit_text_text_size" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+
+
+                        <androidx.appcompat.widget.AppCompatImageView
+                            android:id="@+id/iv_card_phrase_image"
+                            android:layout_width="match_parent"
+                            android:layout_height="200dp"
+                            android:layout_marginTop="@dimen/add_screen_place_image_marginTop"
+                            android:background="@drawable/white_border_shape_button_rounded"
+                            android:padding="@dimen/add_screen_place_image_padding"
+                            android:scaleType="centerCrop"
+                            android:src="@drawable/add_screen_image_placeholder"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintHorizontal_bias="0.0"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/til_create_color_label" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+                </ScrollView>
+
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>

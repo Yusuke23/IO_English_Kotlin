@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_marginStart="@dimen/item_IOEnglish_cv_main_marginStartEnd"
+    android:layout_marginTop="@dimen/item_IOEnglish_cv_main_marginStartEnd"
+    android:layout_marginEnd="@dimen/item_IOEnglish_cv_main_marginStartEnd"
+    android:layout_marginBottom="@dimen/item_IOEnglish_cv_main_marginStartEnd"
+    android:elevation="10dp"
+    android:orientation="horizontal"
+    android:gravity="center_vertical"
+    android:background="@drawable/color_secondary_border_shape_card_rounded"
+    app:cardCornerRadius="@dimen/item_IOEnglish_cv_corner_radius"
+    >
+
+    <View
+        android:id="@+id/view_label_color"
+        android:layout_width="15dp"
+        android:layout_height="match_parent"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tv_key_word"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/primary_text_color"
+            android:textSize="12sp"
+            android:textStyle="italic"
+            android:gravity="end"
+            tools:text="key word"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tv_phrase_in_japanese"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="8dp"
+                    android:textColor="@color/primary_text_color"
+                    android:textSize="@dimen/item_IOEnglish_phrase_text_Size"
+                    tools:text="日本語" />
+
+                <TextView
+                    android:id="@+id/tv_phrase_in_english"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="8dp"
+                    android:textColor="@color/item_IOEnglish_description_text_color"
+                    android:textSize="@dimen/item_IOEnglish_phrase_text_Size"
+                    android:textStyle="bold"
+                    tools:text="English" />
+
+            </LinearLayout>
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/iv_card_phrase_image"
+                android:layout_width="@dimen/item_board_image_size"
+                android:layout_height="@dimen/item_board_image_size"
+                android:contentDescription="@string/image_contentDescription"
+                app:civ_border_color="@color/primary_text_color"
+                app:civ_border_width="@dimen/item_board_image_circular_border_width" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>
