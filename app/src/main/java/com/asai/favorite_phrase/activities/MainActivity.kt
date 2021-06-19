@@ -56,7 +56,6 @@ class MainActivity: BaseActivity(), NavigationView.OnNavigationItemSelectedListe
                 CREATE_CARD_SITUATION_REQUEST_CODE)
         }
 
-
         setupActionBar()
 
         binding.navView.setNavigationItemSelectedListener(this)
@@ -64,6 +63,8 @@ class MainActivity: BaseActivity(), NavigationView.OnNavigationItemSelectedListe
         mSharedPreferences = this.getSharedPreferences(
             Constants.IOENGLISH_PREFERENCES, Context.MODE_PRIVATE
         )
+
+        swipeToShowEditButton()
 
         showProgressDialog(resources.getString(R.string.please_wait))
         FirestoreClass().loadUserData(this)
@@ -74,6 +75,10 @@ class MainActivity: BaseActivity(), NavigationView.OnNavigationItemSelectedListe
 
     private fun setupActionBar() {
         setSupportActionBar(binding.iAppbarMain.iMainContentCardSituation.toolbarMain)
+        val actionBar = supportActionBar
+        if (actionBar != null) {
+            actionBar.title = resources.getString(R.string.main_screen_title)
+        }
         binding.iAppbarMain.iMainContentCardSituation.toolbarMain.setNavigationIcon(R.drawable.ic_action_navigation_menu)
         binding.iAppbarMain.iMainContentCardSituation.toolbarMain.setNavigationOnClickListener {
             toggleDrawer()
@@ -160,7 +165,24 @@ class MainActivity: BaseActivity(), NavigationView.OnNavigationItemSelectedListe
             val adapter = CardSituationAdapter(this, cardList)
             binding.iAppbarMain.iMainContentCardSituation.rvSituationList.adapter = adapter
 
-            swipeController = SwipeController(object : SwipeControllerActions() {
+            // 作成されたノートをクリックした時の処理
+            adapter.setOnClickListener(object : CardSituationAdapter.OnClickListener {
+                override fun onClick(position: Int, model: Situation) {
+                    val intent = Intent(this@MainActivity, CardPhraseActivity::class.java)
+                    intent.putExtra(Constants.DOCUMENT_ID, model.documentId)
+                    startActivity(intent)
+                }
+            })
+
+        } else {
+            binding.iAppbarMain.iMainContentCardSituation.rvSituationList.visibility = View.GONE
+            binding.iAppbarMain.iMainContentCardSituation.tvNoSituationListAvailable.visibility = View.VISIBLE
+        }
+    }
+
+    // recyclerView をスワイプできるようにする。かつ、下層レイヤーにボタンを設置。
+    private fun swipeToShowEditButton() {
+        swipeController = SwipeController(object : SwipeControllerActions() {
 
                 // viewHolder を左にスワイプして下層レイヤーから出てくる EDIT button を押した時の処理
                 override fun onRightClicked(position: Int) {
@@ -182,20 +204,6 @@ class MainActivity: BaseActivity(), NavigationView.OnNavigationItemSelectedListe
                     swipeController!!.onDraw(c)
                 }
             })
-
-            // 作成されたノートをクリックした時の処理
-            adapter.setOnClickListener(object : CardSituationAdapter.OnClickListener {
-                override fun onClick(position: Int, model: Situation) {
-                    val intent = Intent(this@MainActivity, CardPhraseActivity::class.java)
-                    intent.putExtra(Constants.DOCUMENT_ID, model.documentId)
-                    startActivity(intent)
-                }
-            })
-
-        } else {
-            binding.iAppbarMain.iMainContentCardSituation.rvSituationList.visibility = View.GONE
-            binding.iAppbarMain.iMainContentCardSituation.tvNoSituationListAvailable.visibility = View.VISIBLE
-        }
     }
 
     fun updateNavigationUserDetails(user: User?, readNotesList: Boolean) {
