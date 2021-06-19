@@ -25,4 +25,21 @@
     <color name="button_background_color">#63ace5</color>
 <!--    base_activity-->
     <color name="snackBar_error_color">#F72400</color>
+<!--dialog_list-->
+    <color name="divider_color">#EAEAEA</color>
+<!--CreateCardPhraseActivity-->
+    <string-array name="label_colors">
+        <item>#FF0000</item>
+        <item>#FFA500</item>
+        <item>#FFFF00</item>
+        <item>#008000</item>
+        <item>#00FFFF</item>
+        <item>#0000FF</item>
+        <item>#800080</item>
+
+        <item>#FF69B4</item>
+        <item>#96514D</item> <!--小豆色-->
+        <item>#006E54</item> <!--萌葱色　もえぎいろ-->
+
+    </string-array>
 </resources>

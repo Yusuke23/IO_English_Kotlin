@@ -1,2 +1,2 @@
 include ':app'
-rootProject.name = "IO English"
+rootProject.name = "Favorite_phrase"
