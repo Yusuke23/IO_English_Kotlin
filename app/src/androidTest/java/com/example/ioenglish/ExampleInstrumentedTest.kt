@@ -1,4 +1,4 @@
-package com.asai.favorite_phrase
+package com.example.ioenglish
 
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4

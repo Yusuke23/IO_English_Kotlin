@@ -265,64 +265,6 @@ class CardPhraseActivity: BaseActivity(), TextToSpeech.OnInitListener {
 
     }
 
-    // card phrase 画面にカード表示 or 何もない画面表示
-//    fun populateNotesListToUI(situation: Situation) {
-//
-//        hideProgressDialog()
-//
-//        //todo try
-//        Log.i(tryTag+" situ.phLi.size", situation.phraseList.size.toString())
-//
-//        // 作成されたカードがある場合カードを並べて表示、なければない No cards available とかいた画面を表示
-//        if (situation.phraseList.size > 0) {
-//            binding.iAppbarCardPhrase.iMainContentCardPhrase.rvCardPhraseList.visibility = View.VISIBLE
-//            binding.iAppbarCardPhrase.iMainContentCardPhrase.tvNoCardPhraseAvailable.visibility = View.GONE
-//            binding.iAppbarCardPhrase.iMainContentCardPhrase.rvCardPhraseList.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
-//            binding.iAppbarCardPhrase.iMainContentCardPhrase.rvCardPhraseList.setHasFixedSize(true)
-//
-//            val adapter = CardPhraseAdapter(this, situation.phraseList)
-//            binding.iAppbarCardPhrase.iMainContentCardPhrase.rvCardPhraseList.adapter = adapter
-//
-//            swipeController = SwipeController(object : SwipeControllerActions() {
-//
-//                // viewHolder を左にスワイプして下層レイヤーから出てくる EDIT button を押した時の処理
-//                override fun onRightClicked(position: Int) {
-//                    val adapter = binding.iAppbarCardPhrase.iMainContentCardPhrase.rvCardPhraseList.adapter as CardPhraseAdapter
-//                    adapter.notifyEditCardPhrase(
-//                        this@CardPhraseActivity,
-//                        position,
-//                        EDIT_CARD_PHRASE_REQUEST_CODE
-//                    )
-//                    // tts の停止
-//                    onStop()
-//                }
-//
-//            })
-//
-//            val itemTouchHelper = ItemTouchHelper(swipeController!!)
-//            itemTouchHelper.attachToRecyclerView(binding.iAppbarCardPhrase.iMainContentCardPhrase.rvCardPhraseList)
-//
-//            binding.iAppbarCardPhrase.iMainContentCardPhrase.rvCardPhraseList.addItemDecoration(object : ItemDecoration() {
-//                override fun onDraw(c: Canvas, parent: RecyclerView, state: RecyclerView.State) {
-//                    swipeController!!.onDraw(c)
-//                }
-//            })
-//
-//            // 作成されたノートをクリックした時の処理
-//            adapter.setOnClickListener(object : CardPhraseAdapter.OnClickListener {
-//                override fun onClick(position: Int, model: Phrase) {
-//
-//                    //text to speech 画面のノートをタップすると英文を読み上げてくれる
-//                    speakOut(model.english)
-//                }
-//            })
-//
-//        } else {
-//            binding.iAppbarCardPhrase.iMainContentCardPhrase.rvCardPhraseList.visibility = View.GONE
-//            binding.iAppbarCardPhrase.iMainContentCardPhrase.tvNoCardPhraseAvailable.visibility = View.VISIBLE
-//        }
-//    }
-
     // text to speech 用
     override fun onInit(status: Int) {
         if (status == TextToSpeech.SUCCESS) {

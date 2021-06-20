@@ -1,4 +1,4 @@
-package com.asai.favorite_phrase
+package com.example.ioenglish
 
 import org.junit.Test
 

@@ -1,4 +1,4 @@
-package com.asai.favorite_phrase.activities
+package com.example.ioenglish.activities
 
 import android.app.Activity
 import android.content.Context
@@ -15,15 +15,15 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ItemDecoration
 import com.bumptech.glide.Glide
-import com.asai.favorite_phrase.R
-import com.asai.favorite_phrase.adapters.CardSituationAdapter
-import com.asai.favorite_phrase.databinding.ActivityMainBinding
-import com.asai.favorite_phrase.firebase.FirestoreClass
-import com.asai.favorite_phrase.models.Situation
-import com.asai.favorite_phrase.models.User
-import com.asai.favorite_phrase.utils.Constants
-import com.asai.favorite_phrase.utils.SwipeController
-import com.asai.favorite_phrase.utils.SwipeControllerActions
+import com.example.ioenglish.R
+import com.example.ioenglish.adapters.CardSituationAdapter
+import com.example.ioenglish.databinding.ActivityMainBinding
+import com.example.ioenglish.firebase.FirestoreClass
+import com.example.ioenglish.models.Situation
+import com.example.ioenglish.models.User
+import com.example.ioenglish.utils.Constants
+import com.example.ioenglish.utils.SwipeController
+import com.example.ioenglish.utils.SwipeControllerActions
 import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.FirebaseAuth
 import java.util.*

@@ -10,7 +10,7 @@ android {
     buildToolsVersion "30.0.3"
 
     defaultConfig {
-        applicationId "com.asai.favorite_phrase"
+        applicationId "com.example.ioenglish"
         minSdkVersion 23
         targetSdkVersion 30
         versionCode 1
