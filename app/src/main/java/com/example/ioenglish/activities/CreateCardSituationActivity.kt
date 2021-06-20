@@ -17,7 +17,6 @@ import com.bumptech.glide.Glide
 import com.example.ioenglish.R
 import com.example.ioenglish.databinding.ActivityCreateCardSituationBinding
 import com.example.ioenglish.firebase.FirestoreClass
-import com.example.ioenglish.models.Phrase
 import com.example.ioenglish.models.Situation
 import com.example.ioenglish.utils.Constants
 import com.google.firebase.storage.FirebaseStorage

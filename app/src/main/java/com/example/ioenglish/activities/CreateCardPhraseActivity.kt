@@ -173,7 +173,6 @@ class CreateCardPhraseActivity: BaseActivity() {
         }
         listDialog.show()
     }
-    // todo try label color ここまで
 
     // firebase storage に画像を保存
     private fun uploadNoteImage() {

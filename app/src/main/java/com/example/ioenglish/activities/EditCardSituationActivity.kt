@@ -94,7 +94,7 @@ class EditCardSituationActivity : BaseActivity() {
     }
 
     //　カードの情報を画面に貼り付ける
-    fun setCardDetailsInUI(situation: Situation?) {
+    private fun setCardDetailsInUI(situation: Situation?) {
 
         mSituationDetails = situation!!
 

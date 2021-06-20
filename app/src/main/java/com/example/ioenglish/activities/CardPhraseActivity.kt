@@ -8,7 +8,6 @@ import android.content.Intent
 import android.content.SharedPreferences
 import android.content.pm.PackageManager
 import android.graphics.Canvas
-import android.graphics.Color
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
@@ -22,7 +21,6 @@ import android.view.MotionEvent
 import android.view.View
 import android.widget.Toast
 import androidx.core.content.ContextCompat
-import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -30,7 +28,6 @@ import androidx.recyclerview.widget.RecyclerView.ItemDecoration
 import com.example.ioenglish.R
 import com.example.ioenglish.adapters.CardPhraseAdapter
 import com.example.ioenglish.databinding.ActivityCardPhraseBinding
-import com.example.ioenglish.dialogs.LabelColorListDialog
 import com.example.ioenglish.firebase.FirestoreClass
 import com.example.ioenglish.models.Phrase
 import com.example.ioenglish.models.Situation
@@ -207,8 +204,6 @@ class CardPhraseActivity: BaseActivity(), TextToSpeech.OnInitListener {
 
             // viewHolder を左にスワイプして下層レイヤーから出てくる EDIT button を押した時の処理
             override fun onRightClicked(position: Int) {
-                val tryTag = "trytry"
-                Log.i(tryTag+" onRightClicked", "onRightClicked")
                 val adapter = binding.iAppbarCardPhrase.iMainContentCardPhrase.rvCardPhraseList.adapter as CardPhraseAdapter
                 adapter.notifyEditCardPhrase(
                     this@CardPhraseActivity,
